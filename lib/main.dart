@@ -1,70 +1,61 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter/cupertino.dart';
 
-void main() => runApp(MaterialApp(
-      home: Home(),
-    ));
+// void main() {
+//   runApp(MyApp());
+// }
 
-class Home extends StatelessWidget {
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
   void answerQuestion() {
-    print('Answer Chosen!');
+    print('Answer chosen!');
   }
 
   @override
   Widget build(BuildContext context) {
-    var question = [
-      "What\'s your favorite Color?",
-      "What\'s your favorite animal?",
+    var questions = [
+      'What\'s your favorite color?',
+      'What\'s your favorite animarl?',
     ];
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Flutter App",
-          style: TextStyle(
-            fontFamily: 'Monsterrat',
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        backgroundColor: Colors.red[600],
+    return MaterialApp(
+      theme: ThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.red[600],
+            onPrimary: Colors.white,
+          )
+        )
       ),
-      body: Column(
-        children: [
-          Text(
-            'The question',
-            style: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 20.0,
-              letterSpacing: 1,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('My First App'),
+        ),
+        body: Column(
+          children: [
+            Text('The question!',
+              style: TextStyle(
+                fontFamily: 'Montserrat',
+                letterSpacing: 2,
+                fontSize: 20.0,
+              ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              answerQuestion();
-            },
-            child: Text("Answer 1"),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.red),
+            ElevatedButton(
+              child: Text('Answer 1'),
+              onPressed: answerQuestion,
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              answerQuestion();
-            },
-            child: Text("Answer 2"),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.red),
+            ElevatedButton(
+              child: Text('Answer 2'),
+              onPressed: () => print('Answer 2 chosen!'),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              answerQuestion();
-            },
-            child: Text("Answer 3"),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.red),
+            ElevatedButton(
+              child: Text('Answer 3'),
+              onPressed: () {
+                // ...
+                print('Answer 3 chosen');
+              },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
