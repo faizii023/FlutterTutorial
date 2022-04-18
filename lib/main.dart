@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -17,54 +17,79 @@ class MyApp extends StatefulWidget {
   }
 }
 
-//Adding underscore before any function,
-//variable,class restrict that  inside this file only
 class _MyAppState extends State<MyApp> {
-  var _questionTndex = 0;
+  final _questions = const [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1}
+      ],
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': [
+        {'text': 'Rabbit', 'score': 6},
+        {'text': 'Snake', 'score': 10},
+        {'text': 'Elephant', 'score': 4},
+        {'text': 'Lion', 'score': 5}
+      ],
+    },
+    {
+      'questionText': 'Who\'s your favorite person?',
+      'answers': [
+        {'text': 'Father', 'score': 1},
+        {'text': 'Mother', 'score': 0},
+        {'text': 'Wife', 'score': 5},
+        {'text': 'Friend', 'score': 5}
+      ],
+    },
+  ];
+  var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  void _resetQuiz(){
     setState(() {
-      _questionTndex = _questionTndex + 1;
+       _questionIndex = 0;
+       _totalScore = 0;
     });
+  }
 
-    print(_questionTndex);
+  void _answerQuestion(int score) {
+    _totalScore+=score;
+    setState(() {
+      _questionIndex += 1;
+    });
+    if (_questionIndex < _questions.length) {
+      print('Yes we have more question');
+    } else {
+      print('No more questions');
+    }
+
+    print(_questionIndex);
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What\'s your favourite color?',
-      'What\'s your favourite animal?',
-    ];
     return MaterialApp(
-      theme: ThemeData(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-        primary: Colors.red[600],
-        onPrimary: Colors.white,
-      ))),
       home: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.red[600],
           title: Text(
             'My First App',
-            style: TextStyle(
-              fontFamily: 'Montserrat',
-              letterSpacing: 2,
-              fontSize: 20.0,
-            ),
+            style: TextStyle(fontFamily: 'Montserrat', letterSpacing: 2),
           ),
-          backgroundColor: Colors.red[600],
         ),
-        body: Column(
-          children: [
-            Question(
-              questions[_questionTndex],
-            ),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
+            : Result(_totalScore,_resetQuiz),
       ),
     );
   }
