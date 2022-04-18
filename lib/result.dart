@@ -40,6 +40,9 @@ class Result extends StatelessWidget {
             ),
           ),
           OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              primary: Colors.red[600],
+            ),
             onPressed: resetHandler,
             child: Text(
               'Restart quiz',
