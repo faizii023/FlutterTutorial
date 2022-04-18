@@ -14,8 +14,16 @@ class Answer extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           primary: Colors.red[600],
           onPrimary: Colors.white,
+          shadowColor: Colors.black,
         ),
-        child: Text(answerText,style:TextStyle(fontFamily: 'Montserrat',fontSize: 18,fontWeight: FontWeight.bold,letterSpacing: 2),),
+        child: Text(
+          answerText,
+          style: TextStyle(
+              fontFamily: 'Montserrat',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2),
+        ),
         onPressed: selectHandler,
       ),
     );
